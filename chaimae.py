@@ -74,7 +74,7 @@ if uploaded_file is not None:
         if date_columns:
             st.subheader("📅 Analyse temporelle")
             date_col = st.selectbox("Choisir une colonne date", date_columns)
-            df['mois'] = df[date_col].dt.to_period("M")
+            df['mois'] = df[date_col].dt.to_period("M").astype(str)
             df_mois = df.groupby("mois").size().reset_index(name="nombre")
             fig_mois = px.bar(df_mois, x="mois", y="nombre", title="Nombre d'entrées par mois")
             st.plotly_chart(fig_mois, use_container_width=True)
