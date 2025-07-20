@@ -13,9 +13,9 @@ if uploaded_file is not None:
     try:
         # Détecte le type de fichier
         if uploaded_file.name.endswith(".csv"):
-            df = pd.read_csv(uploaded_file)
+            df = pd.read_csv(uploaded_file, encoding="latin1")
         else:
-            df = pd.read_excel(uploaded_file)
+            df = pd.read_excel(uploaded_file, encoding="latin1")
 
         st.success("✅ Fichier chargé avec succès !")
         st.write("Aperçu du fichier :", df.head())
