@@ -11,7 +11,7 @@ uploaded_file = st.file_uploader("📂 Déposez un fichier ici", type=["csv", "x
 
 # 📌 Gestion du fichier par défaut
 if uploaded_file is None:
-    default_path = "mydefault.csv"
+    default_path = "Superstore.csv"
     if os.path.exists(default_path):
         df = pd.read_csv(default_path, encoding="latin1")
         st.info("✅ Aucun fichier importé. Le fichier par défaut a été utilisé.")
