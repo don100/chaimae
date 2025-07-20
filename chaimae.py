@@ -1,22 +1,28 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import os
 
 st.set_page_config(layout="wide", page_title="Data Visualizer")
-
 st.title("📊 Visualisation Avancée de Données")
 st.markdown("Importez un fichier `.csv`, `.xlsx`, ou `.xls` pour explorer vos données automatiquement.")
 
 uploaded_file = st.file_uploader("📂 Déposez un fichier ici", type=["csv", "xlsx", "xls"])
 
-if uploaded_file is not None:
-    try:
-        # Détecte le type de fichier
-        if uploaded_file.name.endswith(".csv"):
-            df = pd.read_csv(uploaded_file, encoding="latin1")
-        else:
-            df = pd.read_excel(uploaded_file, encoding="latin1")
-
+# 📌 Gestion du fichier par défaut
+if uploaded_file is None:
+    default_path = "mydefault.csv"
+    if os.path.exists(default_path):
+        df = pd.read_csv(default_path, encoding="latin1")
+        st.info("✅ Aucun fichier importé. Le fichier par défaut a été utilisé.")
+    else:
+        st.warning("⚠️ Aucun fichier importé et le fichier par défaut est introuvable.")
+        st.stop()
+else:
+    if uploaded_file.name.endswith(".csv"):
+        df = pd.read_csv(uploaded_file, encoding="latin1")
+    else:
+        df = pd.read_excel(uploaded_file)
         st.success("✅ Fichier chargé avec succès !")
         st.write("Aperçu du fichier :", df.head())
 
